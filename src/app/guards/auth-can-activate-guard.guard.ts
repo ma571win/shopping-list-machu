@@ -19,11 +19,15 @@ export class AuthCanActivateGuardGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ) {
-        if (this.authService.isLoggedIn()) {
-            return true;
-        } else {
-            await this.navController.navigateRoot('login');
-            return false;
-        }
+        return new Promise<boolean>((resolve, reject) => {
+            this.authService.authState.subscribe((user) => {
+                if (user) {
+                    resolve(true);
+                } else {
+                    this.navController.navigateBack('login');
+                    resolve(false);
+                }
+            });
+        });
     }
 }

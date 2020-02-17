@@ -1,0 +1,17 @@
+ion-card {
+    border-top: 1px solid orange;
+    form {
+        ion-item {
+            ion-label {
+                color: orange;
+                font-size: 20px;
+            }
+            ion-textarea {
+                border: 1px solid var(--ion-color-medium);
+                border-radius: 12px;
+                padding: 4px;
+                margin-top: 6px;
+            }
+        }
+    }
+}

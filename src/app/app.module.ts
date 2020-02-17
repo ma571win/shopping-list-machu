@@ -9,7 +9,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
-import { firebaseConfig } from '../environments/environment';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { firebaseConfig, environment } from '../environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
     declarations: [AppComponent],
@@ -19,11 +22,14 @@ import { firebaseConfig } from '../environments/environment';
         IonicModule.forRoot(),
         AppRoutingModule,
         AngularFireModule.initializeApp(firebaseConfig),
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ],
     providers: [
         StatusBar,
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        AngularFireAuth,
+        AngularFirestore,
     ],
     bootstrap: [AppComponent],
 })

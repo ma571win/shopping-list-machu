@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { ShoppingListsPageRoutingModule } from './shopping-lists-routing.module';
 
 import { ShoppingListsPage } from './shopping-lists.page';
+import { CreateListComponent } from '../../modals/create-list/create-list.component';
 
 @NgModule({
     imports: [
@@ -14,7 +15,9 @@ import { ShoppingListsPage } from './shopping-lists.page';
         FormsModule,
         IonicModule,
         ShoppingListsPageRoutingModule,
+        ReactiveFormsModule,
     ],
-    declarations: [ShoppingListsPage],
+    declarations: [ShoppingListsPage, CreateListComponent],
+    entryComponents: [CreateListComponent],
 })
 export class ShoppingListsPageModule {}

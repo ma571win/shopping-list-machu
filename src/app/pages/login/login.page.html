@@ -11,36 +11,46 @@
                 </ion-card-title>
             </ion-card-header>
             <ion-card-content class="ion-padding">
-                <ion-item color="tertiary">
-                    <ion-label position="floating">
-                        Username
-                    </ion-label>
-                    <ion-input placeholder="Enter username"></ion-input>
-                </ion-item>
-                <ion-item class="ion-margin-vertical" color="tertiary">
-                    <ion-label position="floating">
-                        Password
-                    </ion-label>
-                    <ion-input
-                        type="password"
-                        placeholder="Enter password"
-                    ></ion-input>
-                </ion-item>
-                <ion-row class="ion-no-padding ion-no-margin">
-                    <ion-col size="6" class="ion-no-padding ion-no-margin">
-                        <ion-button color="tertiary" expand="block">
-                            Login
-                        </ion-button>
-                    </ion-col>
-                    <ion-col size="6" class="ion-no-padding ion-no-margin">
-                        <ion-button
-                            (click)="onGoToRegisterPage()"
-                            color="tertiary"
-                            expand="block"
-                        >
-                            Register
-                        </ion-button>
-                    </ion-col>
+                <form [formGroup]="formGroup">
+                    <ion-item color="tertiary">
+                        <ion-label position="floating">
+                            Username
+                        </ion-label>
+                        <ion-input
+                            formControlName="userName"
+                            placeholder="Enter username"
+                        ></ion-input>
+                    </ion-item>
+                    <ion-item class="ion-margin-vertical" color="tertiary">
+                        <ion-label position="floating">
+                            Password
+                        </ion-label>
+                        <ion-input
+                            formControlName="password"
+                            type="password"
+                            placeholder="Enter password"
+                        ></ion-input>
+                    </ion-item>
+                </form>
+                <ion-row>
+                    <ion-button
+                        (click)="onLoginUser()"
+                        [disabled]="formGroup.invalid"
+                        color="tertiary"
+                        expand="block"
+                        class="w-100"
+                    >
+                        Login
+                    </ion-button>
+                </ion-row>
+                <ion-row>
+                    <ion-button
+                        (click)="onGoToRegisterPage()"
+                        class="w-100 sign-up-button"
+                        fill="clear"
+                        expand="block"
+                        >No account? Sign up here!</ion-button
+                    >
                 </ion-row>
             </ion-card-content>
         </ion-card>

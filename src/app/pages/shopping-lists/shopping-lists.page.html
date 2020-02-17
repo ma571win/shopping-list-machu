@@ -1,50 +1,100 @@
-<ion-header translucent="true" color="secondary">
-    <ion-toolbar color="secondary">
+<ion-header translucent="true">
+    <ion-toolbar color="tertiary">
         <ion-buttons slot="end">
-            <ion-button slot="icon-only">
+            <ion-button (click)="onCreateNewList()" slot="icon-only">
                 <ion-icon name="add"></ion-icon>
             </ion-button>
+            <ion-button (click)="logoutUser()" slot="icon-only">
+                <ion-icon mode="ios" name="log-out"></ion-icon>
+            </ion-button>
         </ion-buttons>
-        <ion-title>Settings</ion-title>
+        <ion-title>Your lists</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content color="primary" fullscreen="true">
-    <ion-item
-        color="tertiary"
-        *ngFor="
-            let lel of [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                15
-            ]
-        "
-    >
-        <ion-label> Item Number: {{ lel }} </ion-label>
-    </ion-item>
+<ion-content color="primary" fullscreen="true" class="ion-padding-horizontal">
+    <ng-container *ngIf="loading">
+        <ion-card color="secondary" *ngFor="let dummy of [0, 1]">
+            <ion-card-header>
+                <ion-item
+                    color="secondary"
+                    class="card-header-item ion-no-padding"
+                >
+                    <ion-thumbnail>
+                        <img src="/assets/icon/list.svg" />
+                    </ion-thumbnail>
+                    <ion-skeleton-text
+                        class="ion-margin-start"
+                        animated="true"
+                        width="60%"
+                    ></ion-skeleton-text>
+                </ion-item>
+            </ion-card-header>
+            <ion-list>
+                <ion-item
+                    color="tertiary"
+                    *ngFor="let item of dummy === 0 ? [0, 1, 2, 3] : [0, 1, 2]"
+                >
+                    <ion-label>
+                        <ion-skeleton-text
+                            animated="true"
+                            width="40%"
+                        ></ion-skeleton-text>
+                        <ion-skeleton-text
+                            animated="true"
+                            width="80%"
+                        ></ion-skeleton-text>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-card>
+    </ng-container>
+    <ng-container *ngIf="!loading">
+        <ion-card color="secondary" *ngFor="let list of lists">
+            <ion-card-header>
+                <ion-item
+                    color="secondary"
+                    class="card-header-item ion-no-padding"
+                >
+                    <ion-thumbnail>
+                        <img src="/assets/icon/list.svg" />
+                    </ion-thumbnail>
+                    <ion-label>
+                        <b>
+                            {{ list.listName }}
+                        </b>
+                    </ion-label>
+                </ion-item>
+            </ion-card-header>
+            <ion-list lines="none">
+                <ion-item
+                    color="tertiary"
+                    *ngFor="let item of list.items; index as index"
+                >
+                    <ion-avatar> {{ index + 1 }}) </ion-avatar>
+                    <ion-label text-wrap>
+                        <h2>
+                            <b>{{ item.itemName }}</b>
+                        </h2>
+                        <ion-note *ngIf="item.description">
+                            {{ item.description }}
+                        </ion-note>
+                        <ion-note>
+                            <p *ngIf="item.brand">
+                                <b>Brand:</b> {{ item.brand }}
+                            </p>
+                            <p *ngIf="item.price">
+                                <b>Price:</b> {{ item.price }}€
+                            </p>
+                        </ion-note>
+                    </ion-label>
+                    <ion-icon
+                        [color]="item.isDone ? 'success' : 'medium'"
+                        slot="end"
+                        name="checkmark"
+                    ></ion-icon>
+                </ion-item>
+            </ion-list>
+        </ion-card>
+    </ng-container>
 </ion-content>

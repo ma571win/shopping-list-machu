@@ -1,9 +1,4 @@
-<ion-header color="secondary">
-    <ion-buttons>
-        <ion-back-button></ion-back-button>
-    </ion-buttons>
-</ion-header>
-<ion-content color="primary">
+<ion-content color="primary" fullscreen="true">
     <ion-row class="h-100 ion-justify-content-center ion-align-items-center">
         <ion-card color="secondary" class="w-100">
             <ion-card-header>
@@ -16,41 +11,69 @@
                 </ion-card-title>
             </ion-card-header>
             <ion-card-content class="ion-padding">
-                <ion-item color="tertiary">
-                    <ion-label position="floating">
-                        Username
-                    </ion-label>
-                    <ion-input placeholder="Enter username"></ion-input>
-                </ion-item>
-                <ion-item class="ion-margin-vertical" color="tertiary">
-                    <ion-label position="floating">
-                        Password
-                    </ion-label>
-                    <ion-input
-                        type="password"
-                        placeholder="Enter password"
-                    ></ion-input>
-                </ion-item>
-                <ion-item class="ion-margin-vertical" color="tertiary">
-                    <ion-label position="floating">
-                        Rewrite password
-                    </ion-label>
-                    <ion-input
-                        type="password"
-                        placeholder="Enter password again"
-                    ></ion-input>
-                </ion-item>
+                <form [formGroup]="formGroup">
+                    <ion-item color="tertiary">
+                        <ion-label position="floating">
+                            Username
+                        </ion-label>
+                        <ion-input
+                            formControlName="userName"
+                            placeholder="Enter Username"
+                        ></ion-input>
+                    </ion-item>
+                    <ion-item class="ion-margin-vertical" color="tertiary">
+                        <ion-label position="floating">
+                            Email
+                        </ion-label>
+                        <ion-input
+                            formControlName="email"
+                            placeholder="Enter email"
+                        ></ion-input>
+                    </ion-item>
+                    <ion-item class="ion-margin-vertical" color="tertiary">
+                        <ion-label position="floating">
+                            Password
+                        </ion-label>
+                        <ion-input
+                            formControlName="password"
+                            type="password"
+                            placeholder="Enter password"
+                        ></ion-input>
+                    </ion-item>
+                    <ion-item class="ion-margin-vertical" color="tertiary">
+                        <ion-label position="floating">
+                            Rewrite password
+                        </ion-label>
+                        <ion-input
+                            formControlName="reenteredPassword"
+                            type="password"
+                            placeholder="Enter password again"
+                        ></ion-input>
+                    </ion-item>
+                </form>
                 <ion-row class="ion-no-padding ion-no-margin">
-                    <ion-col size="6" class="ion-no-padding ion-no-margin">
-                        <ion-button color="tertiary" expand="block">
-                            Register
-                        </ion-button>
-                    </ion-col>
-                    <ion-col size="6" class="ion-no-padding ion-no-margin">
-                        <ion-button color="tertiary" expand="block">
-                            Register
-                        </ion-button>
-                    </ion-col>
+                    <ion-button
+                        [disabled]="
+                            formGroup?.invalid ||
+                            getPassword() !== getReenteredPassword()
+                        "
+                        color="tertiary"
+                        expand="block"
+                        class="w-100"
+                        (click)="registerUser()"
+                    >
+                        Register
+                    </ion-button>
+                </ion-row>
+                <ion-row>
+                    <ion-button
+                        class="w-100 sign-up-button"
+                        expand="block"
+                        fill="clear"
+                        (click)="onGoToLogin()"
+                    >
+                        Already signed up? Log in here!
+                    </ion-button>
                 </ion-row>
             </ion-card-content>
         </ion-card>
